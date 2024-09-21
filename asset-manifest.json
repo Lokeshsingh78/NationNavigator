@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/NationNavigator/static/css/main.57bb2f43.css",
+    "main.js": "/NationNavigator/static/js/main.67f4fd80.js",
+    "static/js/453.941d4355.chunk.js": "/NationNavigator/static/js/453.941d4355.chunk.js",
+    "index.html": "/NationNavigator/index.html",
+    "main.57bb2f43.css.map": "/NationNavigator/static/css/main.57bb2f43.css.map",
+    "main.67f4fd80.js.map": "/NationNavigator/static/js/main.67f4fd80.js.map",
+    "453.941d4355.chunk.js.map": "/NationNavigator/static/js/453.941d4355.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.57bb2f43.css",
+    "static/js/main.67f4fd80.js"
+  ]
+}
