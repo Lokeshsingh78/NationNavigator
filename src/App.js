@@ -1,25 +1,44 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import CountryCard from './CountryCard'; 
 import './App.css';
 
-function App() {
+const App = () => {
+  const [countries, setCountries] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  useEffect(() => {
+    fetch('https://restcountries.com/v3.1/all')
+      .then((response) => response.json())
+      .then((data) => setCountries(data));
+  }, []);
+
+  const filteredCountries = countries
+    .filter((country) =>
+      country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => a.name.common.localeCompare(b.name.common)); 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+     
+      <nav className="navbar">
+        <h1>Nation Navigator</h1>
+        <input
+          type="text"
+          placeholder="Search for a country..."
+          className="search-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </nav>
+
+   
+      <div className="countries-grid">
+        {filteredCountries.map((country) => (
+          <CountryCard key={country.cca3} country={country} />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
