@@ -16,6 +16,7 @@ const CountryCard = ({ country }) => {
           {country.capital && <p>{country.capital[0]}</p>}
         </div>
         <div className="card-back">
+        <br></br>
           {country.region && <p><strong>Region:</strong> {country.region}</p>}
           {country.subregion && <p><strong>Subregion:</strong> {country.subregion}</p>}
           {country.capital && <p><strong>Capital:</strong> {country.capital[0]}</p>}
