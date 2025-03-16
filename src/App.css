@@ -1,8 +1,8 @@
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -10,8 +10,8 @@ body {
   color: rgb(251, 251, 251);
   font-family: Arial, sans-serif;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
-
 
 .navbar {
   position: sticky;
@@ -29,6 +29,7 @@ body {
 .navbar h1 {
   margin: 0;
   font-size: 24px;
+  cursor: default;
 }
 
 .search-input {
@@ -44,7 +45,6 @@ body {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
-
 @media (max-width: 768px) {
   .navbar h1 {
     font-size: 20px;
@@ -55,15 +55,14 @@ body {
   }
 }
 
-
 .countries-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-items: center;
+  min-height: 81vh;
 }
-
 
 .country-card {
   perspective: 1000px;
@@ -75,10 +74,6 @@ body {
   border-radius: 10px;
   transition: box-shadow 0.3s;
   min-height: 200px;
-}
-
-.country-card:hover {
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .card-inner {
@@ -125,7 +120,7 @@ body {
   color: white;
   transform: rotateY(180deg);
   text-align: left;
-  padding: 20px;
+  padding: 30px 20px;
 }
 
 .card-back h3 {
@@ -138,7 +133,6 @@ body {
   color: #ccc;
   line-height: 1.5;
 }
-
 
 @media (max-width: 768px) {
   .country-card {
@@ -156,7 +150,6 @@ body {
     transition: none;
   }
 
- 
   .card-back h3 {
     font-size: 0.9rem;
   }
@@ -173,7 +166,6 @@ body {
     font-size: 0.8rem;
   }
 
- 
   .card-front img {
     width: 100%;
   }
@@ -183,12 +175,18 @@ body {
   }
 }
 
-
-footer {
+.footer {
   background-color: #0D0E20;
   color: rgb(251, 251, 251);
-  padding: 10px;
+  padding: 25px;
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;
   border-top: 2px solid #444;
+  cursor: pointer;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer:hover {
+  background-color: #161836;
 }
