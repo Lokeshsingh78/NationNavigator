@@ -1,46 +1,53 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import CountryCard from './CountryCard';
-import './App.css';
+import React, { useState, useEffect, useMemo } from "react";
+import CountryCard from "./CountryCard";
+import "./App.css";
+import countriesData from "./data/countries.json";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const fetchCountries = async () => {
-    try {
-      const response = await fetch('https://restcountries.com/v3.1/all');
-      const data = await response.json();
-      setCountries(data);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching countries:', error);
-    }
-  };
-
+  // Load local data (GitHub Pages safe)
   useEffect(() => {
-    fetchCountries();
+    try {
+      setCountries(Array.isArray(countriesData) ? countriesData : []);
+    } catch (error) {
+      console.error("Failed to load countries:", error);
+      setCountries([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  // Memoized filtering and sorting
+  // Memoized filter + sort (SAFE)
   const filteredCountries = useMemo(() => {
+    if (!Array.isArray(countries)) return [];
     return countries
       .filter((country) =>
-        country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+        country?.name?.common
+          ?.toLowerCase()
+          .includes(searchTerm.toLowerCase())
       )
-      .sort((a, b) => a.name.common.localeCompare(b.name.common));
+      .sort((a, b) =>
+        (a?.name?.common || "").localeCompare(b?.name?.common || "")
+      );
   }, [countries, searchTerm]);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // For smooth scrolling
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", color: "white", marginTop: "2rem" }}>
+        Loading countries...
+      </div>
+    );
+  }
 
   return (
     <div>
-
       <nav className="navbar">
         <h1>Nation Navigator</h1>
         <input
@@ -50,16 +57,29 @@ const App = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <p style={{ color: "#aaa", textAlign: "center" }}>
+          {filteredCountries.length} countries found
+        </p>
       </nav>
 
       <div className="countries-grid">
-        {filteredCountries.map((country) => (
-          <CountryCard key={country.cca3} country={country} />
-        ))}
+        {filteredCountries.length === 0 ? (
+          <p style={{ color: "white", textAlign: "center", width: "100%" }}>
+            No countries found
+          </p>
+        ) : (
+          filteredCountries.map((country, index) => (
+            <CountryCard
+              key={country?.cca3 || index}
+              country={country}
+            />
+          ))
+        )}
       </div>
 
-      <div className='footer' onClick={scrollToTop}>Back to top</div>
-
+      <div className="footer" onClick={scrollToTop}>
+        Back to top
+      </div>
     </div>
   );
 };
