@@ -11,7 +11,12 @@ const App = () => {
   // Load local data (GitHub Pages safe)
   useEffect(() => {
     try {
-      setCountries(Array.isArray(countriesData) ? countriesData : []);
+      // FIX: Parse countriesData if it's a string
+      let parsedData = countriesData;
+      if (typeof countriesData === 'string') {
+        parsedData = JSON.parse(countriesData);
+      }
+      setCountries(Array.isArray(parsedData) ? parsedData : []);
     } catch (error) {
       console.error("Failed to load countries:", error);
       setCountries([]);
