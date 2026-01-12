@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import CountryCard from "./CountryCard";
 import "./App.css";
-import countriesData from "./convert.json";
+import countriesData from "./countries.json";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -11,12 +11,7 @@ const App = () => {
   // Load local data (GitHub Pages safe)
   useEffect(() => {
     try {
-      // FIX: Parse countriesData if it's a string
-      let parsedData = countriesData;
-      if (typeof countriesData === 'string') {
-        parsedData = JSON.parse(countriesData);
-      }
-      setCountries(Array.isArray(parsedData) ? parsedData : []);
+      setCountries(Array.isArray(countriesData) ? countriesData : []);
     } catch (error) {
       console.error("Failed to load countries:", error);
       setCountries([]);
