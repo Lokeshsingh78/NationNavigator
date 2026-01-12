@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import CountryCard from "./CountryCard";
 import "./App.css";
-import countriesData from "./data/countries.json";
+import countriesData from "./convert.json";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
